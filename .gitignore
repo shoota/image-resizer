@@ -140,5 +140,6 @@ vite.config.ts.timestamp-*
 
 # Test images
 test_image*.png
+test_review.png
 custom_output.png
 programmatic_output.png
