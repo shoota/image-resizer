@@ -1,0 +1,24 @@
+{
+  "name": "image-resizer",
+  "version": "1.0.0",
+  "description": "CLI tool to resize images",
+  "main": "index.js",
+  "bin": {
+    "image-resizer": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "image",
+    "resize",
+    "cli",
+    "image-resizer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "sharp": "^0.33.5"
+  }
+}
