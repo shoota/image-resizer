@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
-const sharp = require('sharp');
+const { resizeImage } = require('../index');
 const path = require('path');
 const fs = require('fs');
 
@@ -11,7 +11,7 @@ program
   .version('1.0.0')
   .argument('<input>', 'Path to the input image file')
   .option('-w, --width <number>', 'Width of the resized image')
-  .option('-h, --height <number>', 'Height of the resized image')
+  .option('-H, --height <number>', 'Height of the resized image')
   .option('-o, --output <path>', 'Output file path (optional, defaults to input_resized.ext)')
   .action(async (input, options) => {
     try {
@@ -50,12 +50,7 @@ program
 
       // Resize the image
       console.log(`Resizing ${input}...`);
-      await sharp(input)
-        .resize(width, height, {
-          fit: 'inside',
-          withoutEnlargement: false
-        })
-        .toFile(output);
+      await resizeImage(input, output, { width, height });
 
       console.log(`Successfully resized image saved to: ${output}`);
       console.log(`Dimensions: ${width || 'auto'} x ${height || 'auto'}`);

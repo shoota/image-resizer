@@ -35,10 +35,10 @@ image-resizer input.jpg --width 800 --output resized.jpg
 ### Options
 
 - `-w, --width <number>` - Width of the resized image
-- `-h, --height <number>` - Height of the resized image
+- `-H, --height <number>` - Height of the resized image
 - `-o, --output <path>` - Output file path (defaults to `input_resized.ext`)
 - `-V, --version` - Output the version number
-- `--help` - Display help information
+- `-h, --help` - Display help information
 
 ## Programmatic Usage
 
