@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
-const { resizeImage } = require('../index');
-const path = require('path');
-const fs = require('fs');
+import { program } from 'commander';
+import { resizeImage, ResizeOptions } from '../index.js';
+import path from 'path';
+import fs from 'fs';
+
+interface CliOptions {
+  width?: string;
+  height?: string;
+  output?: string;
+}
 
 program
   .name('image-resizer')
@@ -13,7 +19,7 @@ program
   .option('-w, --width <number>', 'Width of the resized image')
   .option('-H, --height <number>', 'Height of the resized image')
   .option('-o, --output <path>', 'Output file path (optional, defaults to input_resized.ext)')
-  .action(async (input, options) => {
+  .action(async (input: string, options: CliOptions) => {
     try {
       // Validate input file exists
       if (!fs.existsSync(input)) {
@@ -50,12 +56,23 @@ program
 
       // Resize the image
       console.log(`Resizing ${input}...`);
-      await resizeImage(input, output, { width, height });
+      
+      // Create options object with proper typing
+      const resizeOptions: ResizeOptions = {};
+      if (width !== undefined) {
+        resizeOptions.width = width;
+      }
+      if (height !== undefined) {
+        resizeOptions.height = height;
+      }
+      
+      await resizeImage(input, output, resizeOptions);
 
       console.log(`Successfully resized image saved to: ${output}`);
       console.log(`Dimensions: ${width || 'auto'} x ${height || 'auto'}`);
     } catch (error) {
-      console.error(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Error: ${errorMessage}`);
       process.exit(1);
     }
   });
